@@ -29,7 +29,7 @@ module.exports = {
     };
 
     this.getTransactions = function (accountId, options) {
-      options = _.merge(options, {'account_id': accountId});
+      options = _.extend(options, {'account_id': accountId});
 
       const requestOptions = _.extend(
         requestOptionsForRoute('/transactions', this.authToken),
@@ -37,7 +37,7 @@ module.exports = {
           qs: options,
           transform2xxOnly: true,
           transform (body, response, resolveWithFullResponse) {
-            return body.accounts;
+            return body.transactions;
           }
         });
       return request(requestOptions);

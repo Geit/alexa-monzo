@@ -51,7 +51,9 @@ const handlers = {
     monzoUser.getAccounts().then((accounts) => {
       monzoUser.getBalance(accounts[0].id).then((balanceResponse) => {
         if (balanceResponse.spend_today > 0)
-          this.emit(':tell', `You've spent a total of ${currencyToWords(balanceResponse.spend_today, balanceResponse.local_currency || balanceResponse.currency)}`);
+          this.emit(':tell', `You've desposited a total of ${currencyToWords(balanceResponse.spend_today, balanceResponse.local_currency || balanceResponse.currency)} today`);
+        else if (balanceResponse.spend_today < 0)
+          this.emit(':tell', `You've spent a total of ${currencyToWords(Math.abs(balanceResponse.spend_today), balanceResponse.local_currency || balanceResponse.currency)} today`);
         else
           this.emit(':tell', `You haven't spent anything yet today!`);
       });
