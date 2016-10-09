@@ -1,0 +1,10 @@
+GetSpendingHistory how much have i spent in the last {duration}
+GetSpendingHistory how much have i spent on {TransactionCategory} in the last {duration}
+GetSpendingHistory what is my spending on {TransactionCategory} in the last {duration}
+GetSpendingHistory in the last {duration} how much have i spent on {TransactionCategory}
+
+GetBalance what my balance is
+GetBalance what is my balance
+
+GetSpendingToday how much I have spent today
+GetSpendingToday how much I've spent

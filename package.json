@@ -1,0 +1,25 @@
+{
+  "name": "alexa-monzo",
+  "version": "1.0.0",
+  "description": "Alexa Skill for Monzo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rory King",
+  "license": "ISC",
+  "dependencies": {
+    "alexa-sdk": "^1.0.6",
+    "async": "^2.0.1",
+    "moment": "^2.15.1",
+    "request": "^2.75.0",
+    "request-promise": "^4.1.1",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "eslint": "^3.7.1",
+    "eslint-config-standard": "^6.2.0",
+    "eslint-plugin-promise": "^3.0.0",
+    "eslint-plugin-standard": "^2.0.1"
+  }
+}
