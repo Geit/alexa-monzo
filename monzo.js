@@ -28,6 +28,15 @@ module.exports = {
       return request(requestOptions);
     };
 
+    this.getTargets = function (accountId) {
+      const requestOptions = _.extend(
+        requestOptionsForRoute('/targets', this.authToken),
+        {
+          qs: {'account_id': accountId}
+        });
+      return request(requestOptions);
+    };
+
     this.getTransactions = function (accountId, options) {
       options = _.extend(options, {'account_id': accountId});
 
@@ -37,7 +46,7 @@ module.exports = {
           qs: options,
           transform2xxOnly: true,
           transform (body, response, resolveWithFullResponse) {
-            return body.transactions;
+            return body;
           }
         });
       return request(requestOptions);

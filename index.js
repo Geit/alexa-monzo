@@ -3,6 +3,7 @@ const Alexa = require('alexa-sdk');
 const moment = require('moment');
 const monzo = require('./monzo');
 const async = require('async');
+const _ = require('underscore');
 
 exports.handler = function (event, context, callback) {
   console.log(context.logGroupName);
@@ -91,6 +92,39 @@ const handlers = {
           this.emit(':tell', `You haven't spent anything ${categoryString} in the last ${duration.humanize()}!`);
       });
     }).catch(handleMonzoError.bind(this));
+  },
+
+  GetTargets () {
+    const monzoUser = monzo.monzoUser(getAndValidiateMonzoAuthToken(this));
+    if (!monzoUser) return;
+
+    monzoUser.getAccounts().then((accounts) => {
+      monzoUser.getTargets(accounts[0].id).then((targets) => {
+        if (!targets.targets.length)
+          return this.emit(':tell', `You don't have any targets! Set some up in the Monzo App!`);
+
+        // TODO maybe give special treatment to the "total" target
+        const targetBuckets = _.groupBy(targets.targets, 'status');
+        if (targetBuckets['OKAY'] && targetBuckets['OKAY'].length === targets.targets.length) {
+          this.emit(':tell', `You're currently within all your targets for this ${targets.interval_type}`);
+        } else {
+          const responseParts = [];
+          if (targetBuckets['EXCEEDED'] && targetBuckets['EXCEEDED'].length)
+            responseParts.push(`You've exceeded your target for the following categories: ${_.pluck(targetBuckets['EXCEEDED'], 'name').join(' ').replace('_', ' ')}.`);
+
+          // TODO what's the name of the off-target state?
+
+          if (targetBuckets['OKAY'] && targetBuckets['OKAY'].length)
+            responseParts.push(`You're still on target for the following categories: ${_.pluck(targetBuckets['OKAY'], 'name').join(' ').replace('_', ' ')}`);
+
+          this.emit(':tell', responseParts.join(' '));
+        }
+      });
+    }).catch(handleMonzoError.bind(this));
+  },
+
+  Unhandled () {
+    this.emit(':tell', `I'm sorry, I didn't know what to do with your request!`);
   }
 };
 
