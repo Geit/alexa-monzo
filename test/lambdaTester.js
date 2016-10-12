@@ -1,10 +1,10 @@
 const intentResponder = require('../index');
-
+// TO DO Promisfy and simplify calling mechanism
 module.exports.testLambdaEvent = function (event, successCallback, errorCallback) {
-  intentResponder.handler(event,
+  return intentResponder.handler(event,
     {
       succeed (response) {
-        successCallback(response.response.outputSpeech.ssml.match(/<speak> (.*) <\/speak>/)[1]);
+        successCallback();
       },
       fail: errorCallback
     });
@@ -20,7 +20,7 @@ module.exports.generateEventForIntent = function (intentName, slots) {
       'attributes': {},
       'user': {
         'userId': 'Tester',
-        'accessToken': process.argv[2]
+        'accessToken': 'testingToken'
       },
       'new': true
     },
@@ -30,9 +30,22 @@ module.exports.generateEventForIntent = function (intentName, slots) {
       'timestamp': '2016-10-08T21:40:16Z',
       'intent': {
         'name': intentName,
-        'slots': {}
+        slots
       }
     },
     'version': '1.0'
   };
+};
+
+module.exports.testEchoIntent = function (intentName, slots) {
+  return new Promise((resolve, reject) => {
+    intentResponder.handler(this.generateEventForIntent(intentName, slots), {
+      succeed (response) {
+        resolve(response.response.outputSpeech.ssml.match(/<speak> (.*) <\/speak>/)[1]);
+      },
+      fail (response) {
+        reject(response);
+      }
+    });
+  });
 };
