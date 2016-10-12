@@ -1,3 +1,4 @@
+process.env.NODE_ENV = 'test';
 const intentResponder = require('../index');
 // TO DO Promisfy and simplify calling mechanism
 module.exports.testLambdaEvent = function (event, successCallback, errorCallback) {
@@ -15,7 +16,7 @@ module.exports.generateEventForIntent = function (intentName, slots) {
   return {
     'session': {
       'application': {
-        'applicationId': 'amzn1.ask.skill.cb254b3a-36e7-49ff-82cb-23dfb06f9e8f'
+        'applicationId': 'testSkill'
       },
       'attributes': {},
       'user': {
