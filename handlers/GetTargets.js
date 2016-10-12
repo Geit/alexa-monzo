@@ -9,7 +9,7 @@ module.exports = function () {
   monzoUser.getAccounts().then((accounts) => {
     monzoUser.getTargets(accounts[0].id).then((targets) => {
       if (!targets.targets.length)
-        return this.emit(':tell', `You don't have any targets! Set some up in the Monzo App!`);
+        return this.emit(':tell', `You don't have any targets, Set some up in the Monzo App!`);
 
       // TODO maybe give special treatment to the "total" target
       const targetBuckets = _.groupBy(targets.targets, 'status');
@@ -20,7 +20,8 @@ module.exports = function () {
         if (targetBuckets['EXCEEDED'] && targetBuckets['EXCEEDED'].length)
           responseParts.push(`You've exceeded your target for the following categories: ${_.pluck(targetBuckets['EXCEEDED'], 'name').join(' ').replace('_', ' ')}.`);
 
-        // TODO what's the name of the off-target state?
+        if (targetBuckets['WARNING'] && targetBuckets['WARNING'].length)
+          responseParts.push(`You're close to exceeding your target for these categories: ${_.pluck(targetBuckets['WARNING'], 'name').join(' ').replace('_', ' ')}.`);
 
         if (targetBuckets['OKAY'] && targetBuckets['OKAY'].length)
           responseParts.push(`You're still on target for the following categories: ${_.pluck(targetBuckets['OKAY'], 'name').join(' ').replace('_', ' ')}`);
