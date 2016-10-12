@@ -18,6 +18,12 @@
     },
     {
       "intent": "GetSpendingToday"
+    },
+    {
+      "intent": "GetTargets"
+    },
+    {
+      "intent": "GetUserNumber"
     }
   ]
 }

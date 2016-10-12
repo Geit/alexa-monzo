@@ -8,3 +8,9 @@ GetBalance what is my balance
 
 GetSpendingToday how much I have spent today
 GetSpendingToday how much I've spent
+
+GetTargets if I am on target
+GetTargets how I am doing with my targets
+GetTargets about my targets
+
+GetUserNumber What is my user number
