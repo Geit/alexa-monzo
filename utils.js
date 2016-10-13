@@ -1,3 +1,4 @@
+'use strict';
 // TO DO A lot of these probably shouldn't be in here...
 const currencyDefinition = {
   'GBP': {

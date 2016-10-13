@@ -1,3 +1,4 @@
+'use strict';
 const monzo = require('../monzo');
 const _ = require('underscore');
 const utils = require('../utils');
@@ -29,5 +30,5 @@ module.exports = function () {
         this.emit(':tell', responseParts.join(' '));
       }
     });
-  }).catch(utils.andleMonzoError.bind(this));
+  }).catch(utils.handleMonzoError.bind(this));
 };
