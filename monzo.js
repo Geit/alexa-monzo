@@ -7,6 +7,12 @@ module.exports = {
   monzoUser (authToken) {
     if (!authToken) return null;
     this.authToken = authToken;
+
+    this.getProfile = function () {
+      const requestOptions = requestOptionsForRoute('/profile', this.authToken);
+      return request(requestOptions);
+    };
+
     this.getAccounts = function () {
       const requestOptions = _.extend(
         requestOptionsForRoute('/accounts', this.authToken),
@@ -46,7 +52,7 @@ module.exports = {
           qs: options,
           transform2xxOnly: true,
           transform (body, response, resolveWithFullResponse) {
-            return body;
+            return body.transactions;
           }
         });
       return request(requestOptions);

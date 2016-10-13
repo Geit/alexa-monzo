@@ -15,5 +15,6 @@ const handlers = {
   GetSpendingHistory: require('./handlers/GetSpendingHistory.js'),
   GetSpendingToday: require('./handlers/GetSpendingToday.js'),
   GetTargets: require('./handlers/GetTargets.js'),
+  GetUserNumber: require('./handlers/GetUserNumber.js'),
   Unhandled: require('./handlers/Unhandled.js')
 };
