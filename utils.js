@@ -37,7 +37,6 @@ module.exports.currencyToWords = function (amount, currency) {
   const minorUnits = +amountParts[1];
 
   const responseParts = [];
-
   if (majorUnits !== 0 || minorUnits === 0)
     responseParts.push(`${majorUnits} ${currencyDefinition[currency].majorCurrencyUnit(majorUnits)}`);
 
@@ -58,4 +57,10 @@ module.exports.handleMonzoError = function (reason) {
 
 module.exports.getAndValidiateMonzoAuthToken = function (context) {
   return context.event.session.user.accessToken || context.emit(':tellWithLinkAccountCard', 'Please link your Monzo account in the Alexa App first') && false;
+};
+
+module.exports.properEnglishJoin = function (arr) {
+  if (arr.length === 1)
+    return arr[0];
+  return [arr.slice(0, -1).join(', '), arr.slice(-1)[0]].join(arr.length < 2 ? '' : ', and ');
 };

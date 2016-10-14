@@ -29,7 +29,7 @@ module.exports = function () {
       });
 
       if (sumOfSpending > 0)
-        this.emit(':tell', `You've spent a total of ${utils.currencyToWords(sumOfSpending)} ${categoryString} in the last ${duration.humanize()}`);
+        this.emit(':tell', `You've spent a total of ${utils.currencyToWords(sumOfSpending)} ${categoryString} in the last ${duration.humanize().replace('a ', '')}`);
       else
         this.emit(':tell', `You haven't spent anything ${categoryString} in the last ${duration.humanize()}!`);
     });

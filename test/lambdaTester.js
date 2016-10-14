@@ -1,15 +1,5 @@
 process.env.NODE_ENV = 'test';
 const intentResponder = require('../index');
-// TO DO Promisfy and simplify calling mechanism
-module.exports.testLambdaEvent = function (event, successCallback, errorCallback) {
-  return intentResponder.handler(event,
-    {
-      succeed (response) {
-        successCallback();
-      },
-      fail: errorCallback
-    });
-};
 
 module.exports.generateEventForIntent = function (intentName, slots) {
   slots = slots || {};

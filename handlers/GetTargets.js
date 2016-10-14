@@ -18,14 +18,17 @@ module.exports = function () {
         this.emit(':tell', `You're currently within all your targets for this ${targets.interval_type}`);
       } else {
         const responseParts = [];
-        if (targetBuckets['EXCEEDED'] && targetBuckets['EXCEEDED'].length)
-          responseParts.push(`You've exceeded your target for the following categories: ${_.pluck(targetBuckets['EXCEEDED'], 'name').join(' ').replace('_', ' ')}.`);
+        if (targetBuckets['EXCEEDED'])
+          responseParts.push(`You've exceeded your target for the following categories: ${utils.properEnglishJoin(_.pluck(targetBuckets['EXCEEDED'], 'name')).replace('_', ' ')}.`);
 
-        if (targetBuckets['WARNING'] && targetBuckets['WARNING'].length)
-          responseParts.push(`You're close to exceeding your target for these categories: ${_.pluck(targetBuckets['WARNING'], 'name').join(' ').replace('_', ' ')}.`);
+        if (targetBuckets['WARNING'])
+          responseParts.push(`You're close to exceeding your target for these categories: ${utils.properEnglishJoin(_.pluck(targetBuckets['WARNING'], 'name')).replace('_', ' ')}.`);
 
-        if (targetBuckets['OKAY'] && targetBuckets['OKAY'].length)
-          responseParts.push(`You're still on target for the following categories: ${_.pluck(targetBuckets['OKAY'], 'name').join(' ').replace('_', ' ')}`);
+        if (targetBuckets['OKAY']) {
+          if (targetBuckets['WARNING'] || targetBuckets['EXCEEDED'])
+            responseParts.push(`But don't worry,`);
+          responseParts.push(`You're still on target for the following categories: ${utils.properEnglishJoin(_.pluck(targetBuckets['OKAY'], 'name')).replace('_', ' ')}`);
+        }
 
         this.emit(':tell', responseParts.join(' '));
       }

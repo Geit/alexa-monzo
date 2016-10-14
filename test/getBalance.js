@@ -3,56 +3,31 @@ require('chai').should();
 const lambdaTester = require('./lambdaTester');
 const nock = require('nock');
 
-const accounts = [
-  {
-    'id': 'acc_0001',
-    'created': '2016-10-05T10:00:00.000Z',
-    'description': 'John Doe'
-  },
-  {
-    'id': 'acc_0002',
-    'created': '2016-10-05T10:00:00.000Z',
-    'description': 'Mary Church'
-  }
-];
-
-nock('https://api.getmondo.co.uk')
-// The first time we get a list of accounts, return only the first one
-.get('/accounts')
-.once()
-.reply(200, {
-  'accounts': accounts.slice(0, 1)
-})
-// For the next account listing, return all
-.get('/accounts')
-.reply(200, {
-  accounts
-})
-// Define the balances for both accounts
-.get('/balance')
-.twice()
-.query({account_id: 'acc_0001'})
-.reply(200, {
-  'balance': 5050,
-  'currency': 'GBP',
-  'spend_today': 0,
-  'local_currency': '',
-  'local_exchange_rate': 0,
-  'local_spend': []
-})
-.get('/balance')
-.query({account_id: 'acc_0002'})
-.reply(200, {
-  'balance': 6060,
-  'currency': 'GBP',
-  'spend_today': 0,
-  'local_currency': '',
-  'local_exchange_rate': 0,
-  'local_spend': []
-});
+const accounts = require('./accounts');
+const monzoApi = nock('https://api.getmondo.co.uk');
 
 describe('GetBalance', () => {
+  before(() => {
+    nock.cleanAll();
+  });
   describe('With a single account', () => {
+    before(() => {
+      monzoApi
+        .get('/accounts')
+        .reply(200, {
+          'accounts': accounts.slice(0, 1)
+        })
+        .get('/balance')
+        .query({account_id: 'acc_0001'})
+        .reply(200, {
+          'balance': 5050,
+          'currency': 'GBP',
+          'spend_today': 0,
+          'local_currency': '',
+          'local_exchange_rate': 0,
+          'local_spend': []
+        });
+    });
     it('should return the users balance and primary account name', () => {
       return lambdaTester.testEchoIntent('GetBalance')
         .then((response) => {
@@ -61,6 +36,33 @@ describe('GetBalance', () => {
     });
   });
   describe('With multiple accounts', () => {
+    before(() => {
+      monzoApi
+      .get('/accounts')
+      .reply(200, {
+        accounts
+      })
+      .get('/balance')
+      .query({account_id: 'acc_0001'})
+      .reply(200, {
+        'balance': 5050,
+        'currency': 'GBP',
+        'spend_today': 0,
+        'local_currency': '',
+        'local_exchange_rate': 0,
+        'local_spend': []
+      })
+      .get('/balance')
+      .query({account_id: 'acc_0002'})
+      .reply(200, {
+        'balance': 6060,
+        'currency': 'GBP',
+        'spend_today': 0,
+        'local_currency': '',
+        'local_exchange_rate': 0,
+        'local_spend': []
+      });
+    });
     it('should return the balances and account names of each account', () => {
       return lambdaTester.testEchoIntent('GetBalance')
         .then((response) => {
