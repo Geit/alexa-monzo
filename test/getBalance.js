@@ -70,4 +70,27 @@ describe('GetBalance', () => {
         });
     });
   });
+  describe('With no access token', () => {
+    it('should return an error indicating the user should sign up', () => {
+      return lambdaTester.testEchoIntent('GetBalance', null, true)
+      .then((response) => {
+        response.should.equal('Please link your Monzo account in the Alexa App first');
+      });
+    });
+  });
+  describe('With invalid access token', () => {
+    before(() => {
+      monzoApi
+        .get('/accounts')
+        .reply(401, {
+          'code': 'unauthorized.bad_access_token'
+        });
+    });
+    it('should return an error indicating the user should regenerate their token', () => {
+      return lambdaTester.testEchoIntent('GetBalance', null)
+      .then((response) => {
+        response.should.equal('Your Monzo access token appears to be invalid, please regenerate it');
+      });
+    });
+  });
 });

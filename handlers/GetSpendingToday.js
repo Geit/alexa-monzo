@@ -4,7 +4,7 @@ const utils = require('../utils');
 const async = require('async');
 
 module.exports = function () {
-  const monzoUser = monzo.monzoUser(utils.getAndValidiateMonzoAuthToken(this));
+  const monzoUser = monzo.monzoUser(this);
   if (!monzoUser) return;
 
   monzoUser.getAccounts().then((accounts) => {
@@ -20,10 +20,16 @@ module.exports = function () {
         });
       },
       () => {
+        let response = '';
         if (spendSum < 0)
-          this.emit(':tell', `You've spent a total of ${utils.currencyToWords(Math.abs(spendSum), currency)} today`);
+          response = `You've spent a total of ${utils.currencyToWords(Math.abs(spendSum), currency)} today.`;
         else
-          this.emit(':tell', `You haven't spent anything yet today!`);
+          response = `You haven't spent anything yet today!`;
+
+        if (!this.event.session.new)
+          this.emit(':ask', `${response} Was there anything else I can help you with?`, `You can ask me how much you've spent recently, or how you're doing with your targets.`);
+        else
+          this.emit(':tell', response);
       }
     );
   }).catch(utils.handleMonzoError.bind(this));

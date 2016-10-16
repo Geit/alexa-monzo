@@ -3,7 +3,7 @@ const async = require('async');
 const utils = require('../utils');
 
 module.exports = function () {
-  const monzoUser = monzo.monzoUser(utils.getAndValidiateMonzoAuthToken(this));
+  const monzoUser = monzo.monzoUser(this);
   if (!monzoUser) return;
 
   monzoUser.getAccounts().then((accounts) => {
@@ -26,8 +26,10 @@ module.exports = function () {
         } else {
           responseParts.push(`The balance for ${accountsWithBalances[0].description}'s account is ${utils.currencyToWords(accountsWithBalances[0].balance.balance, accountsWithBalances[0].balance.currency)}`);
         }
-
-        this.emit(':tell', responseParts.join(' '));
+        if (!this.event.session.new)
+          this.emit(':ask', `${responseParts.join(' ')}. Is there anything else I can help you with?`, `You can ask me how much you've spent recently, or how you're doing with your targets.`);
+        else
+          this.emit(':tell', responseParts.join(' '));
       }
     );
   }).catch(utils.handleMonzoError.bind(this));

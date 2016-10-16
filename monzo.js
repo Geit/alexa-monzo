@@ -1,12 +1,21 @@
 'use strict';
 const request = require('request-promise');
 const _ = require('underscore');
+const utils = require('./utils');
+const moment = require('moment');
 
-// TODO make into class initialized by auth token?
 module.exports = {
-  monzoUser (authToken) {
-    if (!authToken) return null;
-    this.authToken = authToken;
+  monzoUser (alexaRequest) {
+    this.authToken = utils.getAndValidiateMonzoAuthToken(alexaRequest);
+    if (!this.authToken) return null;
+
+    // TODO Move to config file?
+    const CACHE_TIMEOUTS = {
+      'ACCOUNT': moment().subtract(2, 'minutes'),
+      // Not currently cached
+      'TARGETS': moment().subtract(10, 'minutes'),
+      'TRANSACTIONS': moment().subtract(2, 'minutes')
+    };
 
     this.getProfile = function () {
       const requestOptions = requestOptionsForRoute('/profile', this.authToken);
@@ -14,6 +23,9 @@ module.exports = {
     };
 
     this.getAccounts = function () {
+      if (alexaRequest.attributes['accounts'] && moment(alexaRequest.attributes['accounts'].lastFetch).isAfter(CACHE_TIMEOUTS.ACCOUNT))
+        return new Promise((resolve, reject) => { resolve(alexaRequest.attributes['accounts'].slice()); }); // Return a "copy" of the object
+
       const requestOptions = _.extend(
         requestOptionsForRoute('/accounts', this.authToken),
         {
@@ -22,7 +34,11 @@ module.exports = {
             return body.accounts;
           }
         });
-      return request(requestOptions);
+      return request(requestOptions).then((accounts) => {
+        accounts.lastFetch = moment().toString();
+        alexaRequest.attributes['accounts'] = accounts;
+        return accounts;
+      });
     };
 
     this.getBalance = function (accountId) {

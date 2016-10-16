@@ -65,7 +65,7 @@ describe('GetSpendingHistory', () => {
           'value': 'groceries'
         }})
         .then((response) => {
-          response.should.equal(`You've spent a total of 24 pounds and 40 pence on groceries in the last month`);
+          response.should.equal(`You've spent a total of 24 pounds and 40 pence on groceries in the last month.`);
         });
     });
   });

@@ -1,8 +1,9 @@
 process.env.NODE_ENV = 'test';
 const intentResponder = require('../index');
 
-module.exports.generateEventForIntent = function (intentName, slots) {
+module.exports.generateEventForIntent = function (intentName, slots, dontIncludeAccessToken) {
   slots = slots || {};
+  const accessToken = dontIncludeAccessToken ? null : 'testingToken';
   return {
     'session': {
       'application': {
@@ -11,7 +12,7 @@ module.exports.generateEventForIntent = function (intentName, slots) {
       'attributes': {},
       'user': {
         'userId': 'Tester',
-        'accessToken': 'testingToken'
+        accessToken
       },
       'new': true
     },
@@ -28,9 +29,9 @@ module.exports.generateEventForIntent = function (intentName, slots) {
   };
 };
 
-module.exports.testEchoIntent = function (intentName, slots) {
+module.exports.testEchoIntent = function (intentName, slots, dontIncludeAccessToken) {
   return new Promise((resolve, reject) => {
-    intentResponder.handler(this.generateEventForIntent(intentName, slots), {
+    intentResponder.handler(this.generateEventForIntent(intentName, slots, dontIncludeAccessToken), {
       succeed (response) {
         resolve(response.response.outputSpeech.ssml.match(/<speak> (.*) <\/speak>/)[1]);
       },

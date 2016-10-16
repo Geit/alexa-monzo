@@ -5,6 +5,9 @@ exports.handler = function (event, context, callback) {
   const alexa = Alexa.handler(event, context);
   if (process.env.NODE_ENV === 'test')
     alexa.appId = 'testSkill';
+  // Reenable the below to enable dynamo db caching of Monzo API requests
+  // else
+  //  alexa.dynamoDBTableName = 'alexaMonzoCacheTable';
   alexa.registerHandlers(handlers);
   alexa.execute();
 };
@@ -16,5 +19,7 @@ const handlers = {
   GetSpendingToday: require('./handlers/GetSpendingToday.js'),
   GetTargets: require('./handlers/GetTargets.js'),
   GetUserNumber: require('./handlers/GetUserNumber.js'),
-  Unhandled: require('./handlers/Unhandled.js')
+  LaunchRequest: require('./handlers/LaunchRequest.js'),
+  Unhandled: require('./handlers/Unhandled.js'),
+  'AMAZON.NoIntent': require('./handlers/AMAZON.NoIntent.js')
 };

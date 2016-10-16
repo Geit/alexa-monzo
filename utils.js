@@ -28,6 +28,9 @@ const currencyDefinition = {
 };
 
 // Surprised Alexa doesn't have a SSML say-as tag for currency, maybe it's undocumented?
+// Update: 15th October: Alexa supports currencies! However there are some pitfalls with Amazon's approach
+// It doesn't understand many currency symbols, and a null balance is read off simply as zero {majorCurrencyUnit}.
+// For now, I'll stick with this approach.
 module.exports.currencyToWords = function (amount, currency) {
   currency = currency || 'GBP';
 

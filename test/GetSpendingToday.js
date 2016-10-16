@@ -58,7 +58,7 @@ describe('GetSpendingToday', () => {
     it('should return the single accounts spending', () => {
       return lambdaTester.testEchoIntent('GetSpendingToday')
         .then((response) => {
-          response.should.equal(`You've spent a total of 104 pounds and 50 pence today`);
+          response.should.equal(`You've spent a total of 104 pounds and 50 pence today.`);
         });
     });
   });
@@ -83,7 +83,7 @@ describe('GetSpendingToday', () => {
     it('should sum up the spending of both accounts', () => {
       return lambdaTester.testEchoIntent('GetSpendingToday')
         .then((response) => {
-          response.should.equal(`You've spent a total of 116 pounds and 81 pence today`);
+          response.should.equal(`You've spent a total of 116 pounds and 81 pence today.`);
         });
     });
   });

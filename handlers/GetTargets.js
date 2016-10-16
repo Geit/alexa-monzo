@@ -4,13 +4,17 @@ const _ = require('underscore');
 const utils = require('../utils');
 
 module.exports = function () {
-  const monzoUser = monzo.monzoUser(utils.getAndValidiateMonzoAuthToken(this));
+  const monzoUser = monzo.monzoUser(this);
   if (!monzoUser) return;
 
   monzoUser.getAccounts().then((accounts) => {
     monzoUser.getTargets(accounts[0].id).then((targets) => {
-      if (!targets.targets.length)
-        return this.emit(':tell', `You don't have any targets, Set some up in the Monzo App!`);
+      if (!targets.targets.length) {
+        if (!this.event.session.new)
+          return this.emit(':ask', `You don't have any targets, Set some up in the Monzo App! Is there anything else?`);
+        else
+          return this.emit(':tell', `You don't have any targets, Set some up in the Monzo App!`);
+      }
 
       // TODO maybe give special treatment to the "total" target
       const targetBuckets = _.groupBy(targets.targets, 'status');
@@ -29,8 +33,10 @@ module.exports = function () {
             responseParts.push(`But don't worry,`);
           responseParts.push(`You're still on target for the following categories: ${utils.properEnglishJoin(_.pluck(targetBuckets['OKAY'], 'name')).replace('_', ' ')}`);
         }
-
-        this.emit(':tell', responseParts.join(' '));
+        if (!this.event.session.new)
+          this.emit(':ask', `${responseParts.join(' ')}. Was there anything else I can help with?`, `You can ask me how much you've spent recently, or how you're doing with your targets.`);
+        else
+          this.emit(':tell', responseParts.join(' '));
       }
     });
   }).catch(utils.handleMonzoError.bind(this));
