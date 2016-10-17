@@ -24,6 +24,9 @@
     },
     {
       "intent": "GetUserNumber"
+    },
+    {
+      "intent" : "AMAZON.NoIntent"
     }
   ]
 }

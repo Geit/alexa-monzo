@@ -1,0 +1,11 @@
+TRANSACTION_CATEGORIES
+transport
+groceries
+eating out
+cash
+bills
+entertainment
+shopping
+holidays
+expenses
+mondo
