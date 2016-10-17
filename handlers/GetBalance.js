@@ -19,7 +19,7 @@ module.exports = function () {
       (err, accountsWithBalances) => {
         if (err) console.error(err);
         if (accountsWithBalances.length > 1) {
-          responseParts.push(`You have ${accounts.length} accouts with Monzo, their balances are:`);
+          responseParts.push(`You have ${accounts.length} accounts with Monzo, their balances are:`);
           accountsWithBalances.forEach((account) => {
             responseParts.push(`${account.description}'s account has a balance of ${utils.currencyToWords(account.balance.balance, account.balance.currency)}.`);
           });
