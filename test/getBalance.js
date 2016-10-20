@@ -66,7 +66,7 @@ describe('GetBalance', () => {
     it('should return the balances and account names of each account', () => {
       return lambdaTester.testEchoIntent('GetBalance')
         .then((response) => {
-          response.should.equal(`You have ${accounts.length} accouts with Monzo, their balances are: ${accounts[0].description}'s account has a balance of 50 pounds and 50 pence. ${accounts[1].description}'s account has a balance of 60 pounds and 60 pence.`);
+          response.should.equal(`You have ${accounts.length} accounts with Monzo, their balances are: ${accounts[0].description}'s account has a balance of 50 pounds and 50 pence. ${accounts[1].description}'s account has a balance of 60 pounds and 60 pence.`);
         });
     });
   });
