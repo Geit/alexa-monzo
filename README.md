@@ -1,4 +1,4 @@
-# Monzo for Alexa
+# Monzo for Alexa [![CircleCI](https://circleci.com/gh/Geit/alexa-monzo.svg?style=svg)](https://circleci.com/gh/Geit/alexa-monzo)
 This project provides an Alexa Skill for the Monzo card/bank - It allows users to query their bank balance and spending history simply and easily with just their voice.
 
 [![Demo of Monzo Skill for Alexa](http://img.youtube.com/vi/_CUqqCOAV6s/0.jpg)](http://www.youtube.com/watch?v=_CUqqCOAV6s)
