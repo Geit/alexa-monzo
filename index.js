@@ -19,7 +19,10 @@ const handlers = {
   GetSpendingToday: require('./handlers/GetSpendingToday.js'),
   GetTargets: require('./handlers/GetTargets.js'),
   GetUserNumber: require('./handlers/GetUserNumber.js'),
+  FreezeCard: require('./handlers/FreezeCard.js'),
+  UnfreezeCard: require('./handlers/UnfreezeCard.js'),
   LaunchRequest: require('./handlers/LaunchRequest.js'),
   Unhandled: require('./handlers/Unhandled.js'),
-  'AMAZON.NoIntent': require('./handlers/AMAZON.NoIntent.js')
+  'AMAZON.NoIntent': require('./handlers/AMAZON.NoIntent.js'),
+  'AMAZON.CancelIntent': require('./handlers/AMAZON.NoIntent.js')
 };

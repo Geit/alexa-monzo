@@ -1,3 +1,4 @@
+'use strict';
 const monzo = require('../monzo');
 const async = require('async');
 const utils = require('../utils');

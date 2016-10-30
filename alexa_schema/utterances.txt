@@ -1,16 +1,36 @@
+GetBalance what my balance is
+GetBalance what is my balance
+GetBalance how much my bank balance is
+GetBalance how much my balance is
+GetBalance how much money i have got
+GetBalance how much money i've got
+GetBalance how much money i have got in my bank account
+
 GetSpendingHistory how much have i spent in the last {duration}
 GetSpendingHistory how much have i spent on {TransactionCategory} in the last {duration}
 GetSpendingHistory what is my spending on {TransactionCategory} in the last {duration}
 GetSpendingHistory in the last {duration} how much have i spent on {TransactionCategory}
 
-GetBalance what my balance is
-GetBalance what is my balance
-
 GetSpendingToday how much I have spent today
 GetSpendingToday how much I've spent
+GetSpendingToday what i have spent today
 
 GetTargets if I am on target
 GetTargets how I am doing with my targets
 GetTargets about my targets
 
 GetUserNumber What is my user number
+GetUserNumber What my user number is
+
+FreezeCard freeze my card
+FreezeCard block my card
+FreezeCard stop my card
+FreezeCard block my account
+FreezeCard freze my account
+FreezeCard disable my card
+
+UnfreezeCard unfreeze my card
+UnfreezeCard unblock my card
+UnfreezeCard unblock my account
+UnfreezeCard unfreze my account
+UnfreezeCard enable my card

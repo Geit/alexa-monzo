@@ -12,6 +12,7 @@ module.exports = {
     // TODO Move to config file?
     const CACHE_TIMEOUTS = {
       'ACCOUNT': moment().subtract(2, 'minutes'),
+      'CARDS': moment().subtract(2, 'minutes'),
       // Not currently cached
       'TARGETS': moment().subtract(10, 'minutes'),
       'TRANSACTIONS': moment().subtract(2, 'minutes')
@@ -39,6 +40,39 @@ module.exports = {
         alexaRequest.attributes['accounts'] = accounts;
         return accounts;
       });
+    };
+
+    this.getCards = function (accountId) {
+      if (alexaRequest.attributes['cards'] && moment(alexaRequest.attributes['cards'].lastFetch).isAfter(CACHE_TIMEOUTS.CARDS))
+        return new Promise((resolve, reject) => { resolve(alexaRequest.attributes['cards'].slice()); });
+
+      const requestOptions = _.extend(
+        requestOptionsForRoute('/card/list', this.authToken),
+        {
+          qs: {'account_id': accountId},
+          transform2xxOnly: true,
+          transform (body, response, resolveWithFullResponse) {
+            return body.cards;
+          }
+        });
+      return request(requestOptions).then((cards) => {
+        cards.lastFetch = moment().toString();
+        alexaRequest.attributes['cards'] = cards;
+        return cards;
+      });
+    };
+
+    this.setCardState = function (cardId, enabled) {
+      const requestOptions = _.extend(
+        requestOptionsForRoute('/card/toggle', this.authToken),
+        {
+          qs: {
+            'card_id': cardId,
+            'status': enabled ? 'ACTIVE' : 'INACTIVE'
+          },
+          method: 'PUT'
+        });
+      return request(requestOptions);
     };
 
     this.getBalance = function (accountId) {

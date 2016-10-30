@@ -26,7 +26,16 @@
       "intent": "GetUserNumber"
     },
     {
+      "intent": "FreezeCard"
+    },
+    {
+      "intent": "UnfreezeCard"
+    },
+    {
       "intent" : "AMAZON.NoIntent"
+    },
+    {
+      "intent" : "AMAZON.CancelIntent"
     }
   ]
 }
