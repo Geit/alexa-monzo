@@ -31,7 +31,7 @@ describe('GetBalance', () => {
     it('should return the users balance and primary account name', () => {
       return lambdaTester.testEchoIntent('GetBalance')
         .then((response) => {
-          response.should.equal(`The balance for ${accounts[0].description}'s account is 50 pounds and 50 pence`);
+          response.should.equal(`The balance for ${accounts[0].description}'s account is 50 pounds and 50 pence.`);
         });
     });
   });

@@ -33,7 +33,7 @@ describe('GetUserNumber', () => {
   it('should print the user number', () => {
     return lambdaTester.testEchoIntent('GetUserNumber')
       .then((response) => {
-        response.should.equal(`Your user number is 123`);
+        response.should.equal(`Your user number is 123.`);
       });
   });
 });

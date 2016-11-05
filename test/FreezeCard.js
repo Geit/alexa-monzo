@@ -54,13 +54,13 @@ describe('FreezeCard', () => {
   it('should freeze the card', () => {
     return lambdaTester.testEchoIntent('FreezeCard')
       .then((response) => {
-        response.should.equal(`Your Monzo card has been frozen`);
+        response.should.equal(`Your Monzo card has been frozen.`);
       });
   });
   it('should tell me the card is already frozen', () => {
     return lambdaTester.testEchoIntent('FreezeCard')
       .then((response) => {
-        response.should.equal(`Your Monzo card is already frozen`);
+        response.should.equal(`Your Monzo card is already frozen.`);
       });
   });
 });

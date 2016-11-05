@@ -1,4 +1,6 @@
 'use strict';
+const t = require('../translator').translate;
+
 module.exports = function () {
-  this.emit(':tell', `I'm sorry, I didn't know what to do with your request!`);
+  this.emit(':tell', t(this.locale, 'UnknownIntent'));
 };

@@ -1,5 +1,6 @@
 'use strict';
 const monzo = require('../monzo');
+const t = require('../translator').translate;
 
 module.exports = function () {
   const monzoUser = monzo.monzoUser(this);
@@ -7,6 +8,6 @@ module.exports = function () {
 
   // This forces the accounts to be cached on the user's next request
   monzoUser.getAccounts().then((accounts) => {
-    this.emit(':ask', 'Welcome to Monzo! What can I help you with today?', 'You can ask me things like "how much is my balance?" or "How much have I spent in the last week"');
+    this.emit(':ask', t(this.locale, 'LaunchWelcome'), t(this.locale, 'LaunchHelp'));
   });
 };

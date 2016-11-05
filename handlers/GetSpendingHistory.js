@@ -2,6 +2,7 @@
 const moment = require('moment');
 const monzo = require('../monzo');
 const utils = require('../utils');
+const t = require('../translator').translate;
 
 module.exports = function () {
   const monzoUser = monzo.monzoUser(this);
@@ -11,17 +12,15 @@ module.exports = function () {
     const timePeriod = moment();
     let duration = moment.duration(1, 'months');
     let category = null;
-    let categoryString = '';
 
     if (this.event.request.intent.slots.duration && this.event.request.intent.slots.duration.value)
       duration = moment.duration(this.event.request.intent.slots.duration.value);
 
     timePeriod.subtract(duration);
 
-    if (this.event.request.intent.slots.TransactionCategory && this.event.request.intent.slots.TransactionCategory.value) {
+    if (this.event.request.intent.slots.TransactionCategory && this.event.request.intent.slots.TransactionCategory.value)
       category = this.event.request.intent.slots.TransactionCategory.value;
-      categoryString = `on ${category}`;
-    }
+
     monzoUser.getTransactions(accounts[0].id, {since: timePeriod.format('YYYY-MM-DD[T]HH:mm:ss[Z]')}).then((transactions) => {
       let sumOfSpending = 0;
       transactions.forEach((transaction) => {
@@ -31,15 +30,22 @@ module.exports = function () {
       });
 
       let response = '';
-      if (sumOfSpending > 0)
-        response = `You've spent a total of ${utils.currencyToWords(sumOfSpending)} ${categoryString} in the last ${duration.humanize().replace('a ', '')}.`;
-      else
-        response = `You haven't spent anything ${categoryString} in the last ${duration.humanize()}!`;
+      if (sumOfSpending > 0) {
+        if (category)
+          response = t(this.locale, 'SpendingTotalWithCategory', {amount: utils.currencyToWords(sumOfSpending), duration: duration.humanize().replace('a ', ''), category});
+        else
+          response = t(this.locale, 'SpendingTotal', {amount: utils.currencyToWords(sumOfSpending), duration: duration.humanize().replace('a ', ''), category});
+      } else {
+        if (category)
+          response = t(this.locale, 'NoSpendingWithCategory', {category});
+        else
+          response = t(this.locale, 'NoSpending');
+      }
 
       if (!this.event.session.new)
-        this.emit(':ask', `${response}. Can I assist you with anything else?`, `You can ask me how much you've spent recently, or how you're doing with your targets.`);
+        this.emit(':ask', `${response} ${t(this.locale, 'ContinueSessionPrompt')}`, t(this.locale, 'Reprompt'));
       else
-          this.emit(':tell', response);
+        this.emit(':tell', response);
     });
   }).catch(utils.handleMonzoError.bind(this));
 };

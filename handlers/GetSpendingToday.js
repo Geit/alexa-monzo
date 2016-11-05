@@ -2,6 +2,7 @@
 const monzo = require('../monzo');
 const utils = require('../utils');
 const async = require('async');
+const t = require('../translator').translate;
 
 module.exports = function () {
   const monzoUser = monzo.monzoUser(this);
@@ -22,12 +23,12 @@ module.exports = function () {
       () => {
         let response = '';
         if (spendSum < 0)
-          response = `You've spent a total of ${utils.currencyToWords(Math.abs(spendSum), currency)} today.`;
+          response = t(this.locale, 'SpendingToday', {amount: utils.currencyToWords(Math.abs(spendSum), currency)});
         else
-          response = `You haven't spent anything yet today!`;
+          response = t(this.locale, 'NoSpendingToday');
 
         if (!this.event.session.new)
-          this.emit(':ask', `${response} Was there anything else I can help you with?`, `You can ask me how much you've spent recently, or how you're doing with your targets.`);
+          this.emit(':ask', `${response} ${t(this.locale, 'ContinueSessionPrompt')}`, t(this.locale, 'Reprompt'));
         else
           this.emit(':tell', response);
       }

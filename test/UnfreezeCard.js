@@ -6,7 +6,7 @@ const accounts = require('./accounts');
 
 const monzoApi = nock('https://api.getmondo.co.uk');
 
-describe('FreezeCard', () => {
+describe('UnfreezeCard', () => {
   before(() => {
     nock.cleanAll();
     monzoApi
@@ -54,13 +54,13 @@ describe('FreezeCard', () => {
   it('should freeze the card', () => {
     return lambdaTester.testEchoIntent('UnfreezeCard')
       .then((response) => {
-        response.should.equal(`Your Monzo card has been unfrozen`);
+        response.should.equal(`Your Monzo card has been unfrozen.`);
       });
   });
   it('should tell me the card is already frozen', () => {
     return lambdaTester.testEchoIntent('UnfreezeCard')
       .then((response) => {
-        response.should.equal(`Your Monzo card isn't frozen`);
+        response.should.equal(`Your Monzo card isn't frozen.`);
       });
   });
 });
