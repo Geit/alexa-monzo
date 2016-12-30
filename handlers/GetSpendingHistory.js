@@ -32,14 +32,14 @@ module.exports = function () {
       let response = '';
       if (sumOfSpending > 0) {
         if (category)
-          response = t(this.locale, 'SpendingTotalWithCategory', {amount: utils.currencyToWords(sumOfSpending), duration: duration.humanize().replace('a ', ''), category});
+          response = t(this.locale, 'SpendingTotalWithCategory', {amount: utils.currencyToWords(sumOfSpending), category: category, duration: duration.humanize().replace('a ', '')});
         else
-          response = t(this.locale, 'SpendingTotal', {amount: utils.currencyToWords(sumOfSpending), duration: duration.humanize().replace('a ', ''), category});
+          response = t(this.locale, 'SpendingTotal', {amount: utils.currencyToWords(sumOfSpending), duration: duration.humanize().replace('a ', '')});
       } else {
         if (category)
-          response = t(this.locale, 'NoSpendingWithCategory', {category});
+          response = t(this.locale, 'NoSpendingWithCategory', {category: category, duration: duration.humanize().replace('a ', '')});
         else
-          response = t(this.locale, 'NoSpending');
+          response = t(this.locale, 'NoSpending', {duration: duration.humanize().replace('a ', '')});
       }
 
       if (!this.event.session.new)
