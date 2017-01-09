@@ -21,3 +21,8 @@ This project provides an Alexa Skill for the Monzo card/bank - It allows users t
     - Set Client Secret to the secret given by [Monzo's OAuth client registration](https://developers.getmondo.co.uk/apps/home)
 - Enable the skill for testing on your own Alexa
 - Develop!
+
+# Troubleshooting
+If you're having difficulty linking your account to Alexa using the Alexa app on *iPhone*, try instead using https://alexa.amazon.co.uk/ through a desktop or mobile browser (Avoiding any built-in WebViews if possible).
+
+If you recieve `Unable to import module 'module'` in your CloudWatch logs after uploading the zip to AWS Lambda, then the structure of your zip might be in a format that Lambda doesn't expect. Your zip must not contain just a folder at its top level, it must contain index.js on the top-level.
