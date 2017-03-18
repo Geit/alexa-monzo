@@ -14,18 +14,18 @@ describe('GetSpendingToday', () => {
       monzoApi
         .get('/accounts')
         .reply(200, {
-          'accounts': accounts.slice(0, 1)
+          accounts: accounts.slice(0, 1)
         })
         .get('/balance')
         .once()
-        .query({account_id: accounts[0].id})
+        .query({ account_id: accounts[0].id })
         .reply(200, {
-          'balance': 5050,
-          'currency': 'GBP',
-          'spend_today': 0,
-          'local_currency': '',
-          'local_exchange_rate': 0,
-          'local_spend': []
+          balance: 5050,
+          currency: 'GBP',
+          spend_today: 0,
+          local_currency: '',
+          local_exchange_rate: 0,
+          local_spend: []
         });
     });
     it('should a no spending message', () => {
@@ -41,18 +41,18 @@ describe('GetSpendingToday', () => {
       monzoApi
           .get('/accounts')
           .reply(200, {
-            'accounts': accounts.slice(0, 1)
+            accounts: accounts.slice(0, 1)
           })
           .get('/balance')
-          .query({account_id: accounts[0].id})
+          .query({ account_id: accounts[0].id })
           .twice()
           .reply(200, {
-            'balance': 5050,
-            'currency': 'GBP',
-            'spend_today': -10450,
-            'local_currency': '',
-            'local_exchange_rate': 0,
-            'local_spend': []
+            balance: 5050,
+            currency: 'GBP',
+            spend_today: -10450,
+            local_currency: '',
+            local_exchange_rate: 0,
+            local_spend: []
           });
     });
     it('should return the single accounts spending', () => {
@@ -70,14 +70,14 @@ describe('GetSpendingToday', () => {
           accounts
         })
         .get('/balance')
-        .query({account_id: accounts[1].id})
+        .query({ account_id: accounts[1].id })
         .reply(200, {
-          'balance': 6060,
-          'currency': 'GBP',
-          'spend_today': -1231,
-          'local_currency': '',
-          'local_exchange_rate': 0,
-          'local_spend': []
+          balance: 6060,
+          currency: 'GBP',
+          spend_today: -1231,
+          local_currency: '',
+          local_exchange_rate: 0,
+          local_spend: []
         });
     });
     it('should sum up the spending of both accounts', () => {

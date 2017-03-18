@@ -15,18 +15,18 @@ describe('GetTargets', () => {
       monzoApi
         .get('/accounts')
         .reply(200, {
-          'accounts': accounts.slice(0, 1)
+          accounts: accounts.slice(0, 1)
         })
         .get('/targets')
-        .query({account_id: accounts[0].id})
+        .query({ account_id: accounts[0].id })
         .reply(200, {
-          'interval_type': 'month',
-          'interval': {
-            'start': '2016-09-30T23:00:00Z',
-            'end': '2016-10-31T23:59:59.999Z'
+          interval_type: 'month',
+          interval: {
+            start: '2016-09-30T23:00:00Z',
+            end: '2016-10-31T23:59:59.999Z'
           },
-          'currency': 'GBP',
-          'targets': []
+          currency: 'GBP',
+          targets: []
         });
     });
     it('should a no spending message', () => {
@@ -42,53 +42,53 @@ describe('GetTargets', () => {
       monzoApi
         .get('/accounts')
         .reply(200, {
-          'accounts': accounts.slice(0, 1)
+          accounts: accounts.slice(0, 1)
         })
         .get('/targets')
-        .query({account_id: accounts[0].id})
+        .query({ account_id: accounts[0].id })
         .reply(200, {
-          'interval_type': 'month',
-          'interval': {
-            'start': '2016-09-30T23:00:00Z',
-            'end': '2016-10-31T23:59:59.999Z'
+          interval_type: 'month',
+          interval: {
+            start: '2016-09-30T23:00:00Z',
+            end: '2016-10-31T23:59:59.999Z'
           },
-          'currency': 'GBP',
-          'targets': [
+          currency: 'GBP',
+          targets: [
             {
-              'type': 'category',
-              'name': 'expenses',
-              'amount': 5500,
-              'status': 'WARNING'
+              type: 'category',
+              name: 'expenses',
+              amount: 5500,
+              status: 'WARNING'
             },
             {
-              'type': 'category',
-              'name': 'general',
-              'amount': 10400,
-              'status': 'WARNING'
+              type: 'category',
+              name: 'general',
+              amount: 10400,
+              status: 'WARNING'
             },
             {
-              'type': 'category',
-              'name': 'groceries',
-              'amount': 21000,
-              'status': 'OKAY'
+              type: 'category',
+              name: 'groceries',
+              amount: 21000,
+              status: 'OKAY'
             },
             {
-              'type': 'total',
-              'name': 'total',
-              'amount': 130000,
-              'status': 'OKAY'
+              type: 'total',
+              name: 'total',
+              amount: 130000,
+              status: 'OKAY'
             },
             {
-              'type': 'category',
-              'name': 'eating_out',
-              'amount': 42700,
-              'status': 'OKAY'
+              type: 'category',
+              name: 'eating_out',
+              amount: 42700,
+              status: 'OKAY'
             },
             {
-              'type': 'category',
-              'name': 'entertainment',
-              'amount': 43700,
-              'status': 'OKAY'
+              type: 'category',
+              name: 'entertainment',
+              amount: 43700,
+              status: 'OKAY'
             }
           ]
         });

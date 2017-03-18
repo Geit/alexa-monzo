@@ -1,4 +1,5 @@
 'use strict';
+
 const moment = require('moment');
 const monzo = require('../monzo');
 const utils = require('../utils');
@@ -21,7 +22,7 @@ module.exports = function () {
     if (this.event.request.intent.slots.TransactionCategory && this.event.request.intent.slots.TransactionCategory.value)
       category = this.event.request.intent.slots.TransactionCategory.value;
 
-    monzoUser.getTransactions(accounts[0].id, {since: timePeriod.format('YYYY-MM-DD[T]HH:mm:ss[Z]')}).then((transactions) => {
+    monzoUser.getTransactions(accounts[0].id, { since: timePeriod.format('YYYY-MM-DD[T]HH:mm:ss[Z]') }).then((transactions) => {
       let sumOfSpending = 0;
       transactions.forEach((transaction) => {
         if (category && transaction.category !== category)
@@ -32,14 +33,13 @@ module.exports = function () {
       let response = '';
       if (sumOfSpending > 0) {
         if (category)
-          response = t(this.locale, 'SpendingTotalWithCategory', {amount: utils.currencyToWords(sumOfSpending), category: category, duration: duration.humanize().replace('a ', '')});
+          response = t(this.locale, 'SpendingTotalWithCategory', { amount: utils.currencyToWords(sumOfSpending), category, duration: duration.humanize().replace('a ', '') });
         else
-          response = t(this.locale, 'SpendingTotal', {amount: utils.currencyToWords(sumOfSpending), duration: duration.humanize().replace('a ', '')});
+          response = t(this.locale, 'SpendingTotal', { amount: utils.currencyToWords(sumOfSpending), duration: duration.humanize().replace('a ', '') });
+      } else if (category) {
+        response = t(this.locale, 'NoSpendingWithCategory', { category, duration: duration.humanize().replace('a ', '') });
       } else {
-        if (category)
-          response = t(this.locale, 'NoSpendingWithCategory', {category: category, duration: duration.humanize().replace('a ', '')});
-        else
-          response = t(this.locale, 'NoSpending', {duration: duration.humanize().replace('a ', '')});
+        response = t(this.locale, 'NoSpending', { duration: duration.humanize().replace('a ', '') });
       }
 
       if (!this.event.session.new)

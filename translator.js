@@ -26,7 +26,7 @@ function getPhrase (lang, key) {
   }
 
   return translations[lang][key];
-};
+}
 
 module.exports.random = function () {
   return Math.random();

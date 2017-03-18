@@ -13,40 +13,40 @@ describe('UnfreezeCard', () => {
     .get('/accounts')
     .twice()
     .reply(200, {
-      'accounts': accounts.slice(0, 1)
+      accounts: accounts.slice(0, 1)
     })
     .get('/card/list')
-    .query({account_id: 'acc_0001'})
+    .query({ account_id: 'acc_0001' })
     .reply(200, {
-      'cards': [
+      cards: [
         {
-          'id': 'card_0000000001',
-          'processor_token': '123123123',
-          'processor': 'abc',
-          'account_id': 'acc_0001',
-          'last_digits': '0001',
-          'name': 'Peter Sherman',
-          'expires': '12/2020',
-          'status': 'INACTIVE'
+          id: 'card_0000000001',
+          processor_token: '123123123',
+          processor: 'abc',
+          account_id: 'acc_0001',
+          last_digits: '0001',
+          name: 'Peter Sherman',
+          expires: '12/2020',
+          status: 'INACTIVE'
         }
       ]
     })
     .put('/card/toggle')
-    .query({card_id: 'card_0000000001', status: 'ACTIVE'})
+    .query({ card_id: 'card_0000000001', status: 'ACTIVE' })
     .reply(200)
     .get('/card/list')
-    .query({account_id: 'acc_0001'})
+    .query({ account_id: 'acc_0001' })
     .reply(200, {
-      'cards': [
+      cards: [
         {
-          'id': 'card_0000000001',
-          'processor_token': '123123123',
-          'processor': 'abc',
-          'account_id': 'acc_0001',
-          'last_digits': '0001',
-          'name': 'Peter Sherman',
-          'expires': '12/2020',
-          'status': 'ACTIVE'
+          id: 'card_0000000001',
+          processor_token: '123123123',
+          processor: 'abc',
+          account_id: 'acc_0001',
+          last_digits: '0001',
+          name: 'Peter Sherman',
+          expires: '12/2020',
+          status: 'ACTIVE'
         }
       ]
     });

@@ -1,4 +1,5 @@
 'use strict';
+
 const monzo = require('../monzo');
 const t = require('../translator').translate;
 

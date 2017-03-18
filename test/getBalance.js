@@ -15,17 +15,17 @@ describe('GetBalance', () => {
       monzoApi
         .get('/accounts')
         .reply(200, {
-          'accounts': accounts.slice(0, 1)
+          accounts: accounts.slice(0, 1)
         })
         .get('/balance')
-        .query({account_id: 'acc_0001'})
+        .query({ account_id: 'acc_0001' })
         .reply(200, {
-          'balance': 5050,
-          'currency': 'GBP',
-          'spend_today': 0,
-          'local_currency': '',
-          'local_exchange_rate': 0,
-          'local_spend': []
+          balance: 5050,
+          currency: 'GBP',
+          spend_today: 0,
+          local_currency: '',
+          local_exchange_rate: 0,
+          local_spend: []
         });
     });
     it('should return the users balance and primary account name', () => {
@@ -43,24 +43,24 @@ describe('GetBalance', () => {
         accounts
       })
       .get('/balance')
-      .query({account_id: 'acc_0001'})
+      .query({ account_id: 'acc_0001' })
       .reply(200, {
-        'balance': 5050,
-        'currency': 'GBP',
-        'spend_today': 0,
-        'local_currency': '',
-        'local_exchange_rate': 0,
-        'local_spend': []
+        balance: 5050,
+        currency: 'GBP',
+        spend_today: 0,
+        local_currency: '',
+        local_exchange_rate: 0,
+        local_spend: []
       })
       .get('/balance')
-      .query({account_id: 'acc_0002'})
+      .query({ account_id: 'acc_0002' })
       .reply(200, {
-        'balance': 6060,
-        'currency': 'GBP',
-        'spend_today': 0,
-        'local_currency': '',
-        'local_exchange_rate': 0,
-        'local_spend': []
+        balance: 6060,
+        currency: 'GBP',
+        spend_today: 0,
+        local_currency: '',
+        local_exchange_rate: 0,
+        local_spend: []
       });
     });
     it('should return the balances and account names of each account', () => {
@@ -83,7 +83,7 @@ describe('GetBalance', () => {
       monzoApi
         .get('/accounts')
         .reply(401, {
-          'code': 'unauthorized.bad_access_token'
+          code: 'unauthorized.bad_access_token'
         });
     });
     it('should return an error indicating the user should regenerate their token', () => {

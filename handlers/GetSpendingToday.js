@@ -1,4 +1,5 @@
 'use strict';
+
 const monzo = require('../monzo');
 const utils = require('../utils');
 const async = require('async');
@@ -23,7 +24,7 @@ module.exports = function () {
       () => {
         let response = '';
         if (spendSum < 0)
-          response = t(this.locale, 'SpendingToday', {amount: utils.currencyToWords(Math.abs(spendSum), currency)});
+          response = t(this.locale, 'SpendingToday', { amount: utils.currencyToWords(Math.abs(spendSum), currency) });
         else
           response = t(this.locale, 'NoSpendingToday');
 

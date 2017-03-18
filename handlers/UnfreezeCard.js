@@ -1,4 +1,5 @@
 'use strict';
+
 const monzo = require('../monzo');
 const t = require('../translator').translate;
 
@@ -15,11 +16,10 @@ module.exports = function () {
           else
             this.emit(':tell', t(this.locale, 'CardUnfrozen'));
         });
+      } else if (!this.event.session.new) {
+        this.emit(':ask', `${t(this.locale, 'CardAlreadyUnfrozen')} ${t(this.locale, 'ContinueSessionPrompt')}`);
       } else {
-        if (!this.event.session.new)
-          this.emit(':ask', `${t(this.locale, 'CardAlreadyUnfrozen')} ${t(this.locale, 'ContinueSessionPrompt')}`);
-        else
-          this.emit(':tell', t(this.locale, 'CardAlreadyUnfrozen'));
+        this.emit(':tell', t(this.locale, 'CardAlreadyUnfrozen'));
       }
     });
   });
