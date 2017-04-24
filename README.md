@@ -16,6 +16,7 @@ This project provides an Alexa Skill for the Monzo card/bank - It allows users t
     - Enable **Account Linking**
     - Set the `Authorization URL` to `https://auth.getmondo.co.uk/`
     - Set the client ID to the ID given by [Monzo's OAuth client registration](https://developers.getmondo.co.uk/apps/home)
+    - Copy one of the `Redirect URLs` into the `Redirect URI` of your Monzo OAuth Client
     - Set `Authorization Grant Type` to `Auth Code`
     - Set `Access Token URI` to `https://api.monzo.com/oauth2/token`
     - Set Client Secret to the secret given by [Monzo's OAuth client registration](https://developers.getmondo.co.uk/apps/home)
