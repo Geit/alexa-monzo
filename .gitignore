@@ -43,5 +43,8 @@ jspm_packages
 # Output of 'npm pack'
 *.tgz
 
+
+dist
+
 # Packages to upload to Lambda
 *.zip

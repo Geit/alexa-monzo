@@ -1,11 +1,11 @@
 'use strict';
 
-const monzo = require('../monzo');
-const utils = require('../utils');
-const async = require('async');
-const t = require('../translator').translate;
+import monzo from '../monzo';
+import utils from '../utils';
+import async from 'async';
+import { translate as t } from '../translator';
 
-module.exports = function () {
+export default function GetSpendingToday() {
   const monzoUser = monzo.monzoUser(this);
   if (!monzoUser) return;
 
@@ -35,4 +35,4 @@ module.exports = function () {
       }
     );
   }).catch(utils.handleMonzoError.bind(this));
-};
+}

@@ -9,7 +9,9 @@
   "author": "Rory King",
   "license": "ISC",
   "dependencies": {
-    "alexa-sdk": "^1.0.6",
+    "5to6-codemod": "^1.7.1",
+    "ask-sdk": "^2.0.7",
+    "ask-sdk-v1adapter": "^2.0.8",
     "async": "^2.0.1",
     "moment": "^2.15.1",
     "request": "^2.75.0",
@@ -18,12 +20,24 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
-    "eslint": "^3.7.1",
-    "eslint-config-standard": "^6.2.0",
-    "eslint-plugin-promise": "^3.0.0",
-    "eslint-plugin-standard": "^2.0.1",
-    "chai": "^3.5.0",
-    "mocha": "^3.1.2",
-    "nock": "^8.1.0"
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "@sky-uk/eslint-config-sky": "^24.0.1",
+    "babel-eslint": "^9.0.0",
+    "chai": "^4.1.2",
+    "copy-webpack-plugin": "^4.5.2",
+    "eslint": "^5.5.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-prettier": "^2.6.2",
+    "eslint-plugin-promise": "^3.8.0",
+    "mocha": "^3.5.3",
+    "nock": "^8.2.2",
+    "prettier": "^1.14.2",
+    "webpack": "^4.17.2",
+    "webpack-cli": "^3.1.0",
+    "zip-webpack-plugin": "^3.0.0"
   }
 }

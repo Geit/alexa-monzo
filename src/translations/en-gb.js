@@ -2,7 +2,7 @@ module.exports = {
   // Accounts
   NumberOfAccountsWithMonzo: [
     `You have {count} accounts with Monzo, their balances are:`,
-    `The balances on your {count} Monzo accounts are:`
+    `The balances on your {count} Monzo accounts are:`,
   ],
   MultipleAccountBalanceWithName: `{name}'s account has a balance of {balance}.`,
   SingleAccountBalanceWithName: `The balance for {name}'s account is {balance}.`,
@@ -13,23 +13,20 @@ module.exports = {
   NoSpending: [
     `You haven't spent anything in the last {duration}!`,
     `Looks like you haven't spent anything in the last {duration}.`,
-    `Your spending in the last {duration} is zero.`
+    `Your spending in the last {duration} is zero.`,
   ],
   NoSpendingWithCategory: [
     `You haven't spent anything on {category} in the last {duration}!`,
     `Looks like you haven't spent anything on {category} in the last {duration}.`,
-    `Your spending on {category} in the last {duration} is zero.`
+    `Your spending on {category} in the last {duration} is zero.`,
   ],
 
   SpendingToday: [
     `You've spent a total of {amount} today.`,
     `You've spent {amount} today`,
-    `Today you've spent {amount}`
+    `Today you've spent {amount}`,
   ],
-  NoSpendingToday: [
-    `You haven't spent anything yet today!`,
-    `You've spent nothing today!`
-  ],
+  NoSpendingToday: [`You haven't spent anything yet today!`, `You've spent nothing today!`],
 
   // Card Freezing
   CardFrozen: `Your Monzo card has been frozen.`,
@@ -49,7 +46,7 @@ module.exports = {
     `Is there anything else I can help with?`,
     `Was there anything else I can help you with?`,
     `Can I assist you with anything else?`,
-    `Is there anything else you'd like to know?`
+    `Is there anything else you'd like to know?`,
   ],
   Reprompt: `You can ask me how much you've spent recently, or how you're doing with your targets.`,
   UnknownIntent: `I'm sorry, I didn't know what to do with your request!`,
@@ -59,5 +56,5 @@ module.exports = {
     <p>For your Monzo Balance, simply ask me "What's my balance".</p>
     <p>To find out how much you've spent today, ask "How much have I spent Today".</p>
     <p>You can also ask me more complicated questions about your spending, for example: "How much have I spent on Groceries in the past week".</p>
-  `
+  `,
 };
