@@ -1,4 +1,4 @@
-import monzo from '../monzo';
+import MonzoUser from '../monzo';
 import { buildAccountName, currencyToWords } from '../utils';
 import { translate as t } from '../translator';
 
@@ -9,9 +9,11 @@ export default {
     return request.type === 'IntentRequest' && request.intent.name === 'GetBalance';
   },
 
-  async handle({ responseBuilder, requestEnvelope }) {
-    const monzoUser = monzo.monzoUser(requestEnvelope);
-    if (!monzoUser) return;
+  async handle(handlerInput) {
+    const { responseBuilder, requestEnvelope } = handlerInput;
+    const monzoUser = new MonzoUser(handlerInput);
+
+    if (!monzoUser.isValid()) return responseBuilder.getResponse();
 
     const responseParts = [];
 

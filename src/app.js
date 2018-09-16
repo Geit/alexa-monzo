@@ -1,4 +1,7 @@
+import 'source-map-support/register';
 import GetBalance from './handlers/GetBalance';
+import FreezeCard from './handlers/FreezeCard';
+import GetSpendingToday from './handlers/GetSpendingToday';
 
 const Alexa = require('ask-sdk-v1adapter');
 
@@ -24,6 +27,6 @@ export function handler(event, context) {
   // else
   //  alexa.dynamoDBTableName = 'alexaMonzoCacheTable';
   // alexa.registerHandlers(handlers);
-  alexa.registerV2Handlers(GetBalance);
+  alexa.registerV2Handlers(GetBalance, FreezeCard, GetSpendingToday);
   alexa.execute();
 }

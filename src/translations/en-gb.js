@@ -29,7 +29,7 @@ module.exports = {
   NoSpendingToday: [`You haven't spent anything yet today!`, `You've spent nothing today!`],
 
   // Card Freezing
-  CardFrozen: `Your Monzo card has been frozen.`,
+  CardFrozen: `All your Monzo cards have been frozen.`,
   CardAlreadyFrozen: `Your Monzo card is already frozen.`,
 
   CardUnfrozen: `Your Monzo card has been unfrozen.`,
@@ -57,4 +57,6 @@ module.exports = {
     <p>To find out how much you've spent today, ask "How much have I spent Today".</p>
     <p>You can also ask me more complicated questions about your spending, for example: "How much have I spent on Groceries in the past week".</p>
   `,
+
+  UnsupportedIntent: [`Sorry - that's not currently supported! Please try again another day.`],
 };

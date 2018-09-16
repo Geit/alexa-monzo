@@ -58,10 +58,13 @@ export function handleMonzoError(reason) {
   }
 }
 
-export function getAndValidiateMonzoAuthToken(context) {
+export function getAndValidiateMonzoAuthToken(alexaRequest) {
+  const { requestEnvelope, responseBuilder } = alexaRequest;
+  const context = requestEnvelope;
+
   return (
     context.session.user.accessToken ||
-    (context.emit(':tellWithLinkAccountCard', 'Please link your Monzo account in the Alexa App first') && false)
+    (responseBuilder.speak('Please link your Monzo account in the Alexa App first').withLinkAccountCard() && false)
   );
 }
 

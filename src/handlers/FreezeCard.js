@@ -1,31 +1,29 @@
-import monzo from '../monzo';
+import MonzoUser from '../monzo';
 import { translate as t } from '../translator';
 
-export default function FreezeCardIntent() {
-  const monzoUser = monzo.monzoUser(this);
-  if (!monzoUser) return;
+export default {
+  canHandle(handlerInput) {
+    const { request } = handlerInput.requestEnvelope;
 
-  monzoUser.getAccounts().then(accounts => {
-    monzoUser.getCards(accounts[0].id).then(cards => {
-      if (cards[0].status === 'ACTIVE') {
-        monzoUser.setCardState(cards[0].id, false).then(() => {
-          if (!this.event.session.new)
-            this.emit(
-              ':ask',
-              `${t(this.locale, 'CardFrozen')} ${t(this.locale, 'ContinueSessionPrompt')}`,
-              t(this.locale, 'Reprompt')
-            );
-          else this.emit(':tell', t(this.locale, 'CardFrozen'));
-        });
-      } else if (!this.event.session.new) {
-        this.emit(
-          ':ask',
-          `${t(this.locale, 'CardAlreadyFrozen')} ${t(this.locale, 'ContinueSessionPrompt')}`,
-          t(this.locale, 'Reprompt')
-        );
-      } else {
-        this.emit(':tell', t(this.locale, 'CardAlreadyFrozen'));
-      }
-    });
-  });
-}
+    return request.type === 'IntentRequest' && request.intent.name === 'FreezeCard';
+  },
+
+  async handle(handlerInput) {
+    const { responseBuilder } = handlerInput;
+    const monzoUser = new MonzoUser(handlerInput);
+
+    if (!monzoUser.isValid()) return responseBuilder.getResponse();
+
+    return responseBuilder.speak(t(this.locale, 'UnsupportedIntent')).getResponse();
+
+    // const accounts = await monzoUser.getAccounts();
+
+    // const cardsByAccount = await Promise.all(accounts.map(account => monzoUser.getCards(account.id)));
+
+    // const freezeCard = card => monzoUser.setCardState(card.id, false);
+
+    // await Promise.all(cardsByAccount.flat().map(freezeCard));
+
+    // return responseBuilder.speak(t(this.locale, 'CardFrozen')).getResponse();
+  },
+};

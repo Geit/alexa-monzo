@@ -1,10 +1,15 @@
 const presets = [
-  ['@babel/preset-env', {
-    targets: {
-      node: '8'
+  [
+    '@babel/preset-env',
+    {
+      targets: {
+        node: '8',
+      },
+      useBuiltIns: 'usage',
     },
-    useBuiltIns: 'usage'
-  }]
+  ],
 ];
 
-module.exports = { presets };
+module.exports = {
+  presets,
+};
